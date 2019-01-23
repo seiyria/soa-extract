@@ -13,10 +13,10 @@
 2. Open the Nox file explorer, and navigate to `/data/data/com.square_enix.android.android_googleplay.StarOceann\files\download\Image`.
 3. Copy the `etc2` folder to `/mnt/shared/OtherShare` (which will make it available to your file system in your `~/Nox_Share/Other)
 4. Drag the `etc2` folder on top of `SOADec.exe` - this should produce a lot of files with `_unpack` in the name, at the end.
-  - If desired, you can remove all the other files with `find -type f \! -name '*_unpack*' -delete` or equivalent
+      - If desired, you can remove all the other files with `find -type f \! -name '*_unpack*' -delete` or equivalent
 5. Drag any `.aif` file onto `SOAImgEx.exe`. 
-  - This will create a `Textures` folder with all of the textures for this particular sprite. This can be opened in Mali Texture Compression Tool or PVRTexTool.
-  - Doing multiple files at a time _will not work_ because `SOAImgEx` does not support specific file name output. Ideally, automating this will address this issue as these files can be post-processed.
+      - This will create a `Textures` folder with all of the textures for this particular sprite. This can be opened in Mali Texture Compression Tool or PVRTexTool.
+      - Doing multiple files at a time _will not work_ because `SOAImgEx` does not support specific file name output. Ideally, automating this will address this issue as these files can be post-processed.
 6. Open or move the image in a different tool and save it as PNG.
 7. Repeat ad infintum until you want to gouge your eyes out.
 8. Done.
