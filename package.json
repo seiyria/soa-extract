@@ -1,0 +1,32 @@
+{
+  "name": "soa-extractor",
+  "version": "1.0.0",
+  "description": "SOA Resource Extractor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seiyria/soanamnesis-extract.git"
+  },
+  "keywords": [
+    "star",
+    "ocean",
+    "anamnesis",
+    "extract",
+    "pvrtextool"
+  ],
+  "author": "Kyle Kemp <kyle@seiyria.com>",
+  "bugs": {
+    "url": "https://github.com/seiyria/soanamnesis-extract/issues"
+  },
+  "homepage": "https://github.com/seiyria/soanamnesis-extract#readme",
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "minimist": "^1.2.0",
+    "node-glob": "^1.2.0",
+    "rimraf": "^2.6.3"
+  },
+  "devDependencies": {}
+}

@@ -3,7 +3,7 @@
 
 ## Tools Used
 
-* PVRTexTool or Mali Texture Compression Tool
+* PVRTexToolCLI.exe (included in repo) but for manual work, you can use PVRTexTool or Mali Texture Compression Tool
 * SOADec.exe (included in repo)
 * SOAImgEx.exe (included in repo) 
 
@@ -43,13 +43,11 @@ All the cool shit is in `Images/etc2`. Known translations:
 - `plate_honor_*` - Title plate sprites.
 - `rare*` - Star rarity icons.
 
+# TODO
+- better file names than 0, 1, 2 - sort them by their base file name (probably before the first underscore)
+- document the CLI
+- make the CLI variables configurable
+
 # Credits
 
 Major credit to akderebur from Xentax forums [thread](http://forum.xentax.com/viewtopic.php?f=16&t=18692) for SOADec and SOAImageEx. I'm just aggregating this information. If you want to find the original versions of the files in this repo, you can get them from that thread.
-
-# TODO
-
-* Automate this with a script, because it's super tedious.
-  * It is unknown if it is possible to get the data directly from Nox without first moving the files manually.
-  * SOAImgEx needs pre/post-processing to get the file(s) in/out synchronously.
-  * PVRTexTool seems to support decompressing via CLI, but untested.
