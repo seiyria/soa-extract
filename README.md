@@ -3,6 +3,7 @@
 
 ## Tools Used
 
+* Node.js
 * PVRTexToolCLI.exe (included in repo) but for manual work, you can use PVRTexTool or Mali Texture Compression Tool
 * SOADec.exe (included in repo)
 * SOAImgEx.exe (included in repo) 
