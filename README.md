@@ -18,7 +18,7 @@
 
 1. After downloading Star Ocean: Anamnesis, log on, and start the tutorial (you do not need to finish it).
 2. Open the Nox file explorer, and navigate to `/data/data/com.square_enix.android.android_googleplay.StarOceann\files\download\Image`.
-3. Copy the `etc2` folder to `/mnt/shared/OtherShare` (which will make it available to your file system in your `~/Nox_Share/Other)
+3. Copy the `etc2` folder to `/mnt/shared/OtherShare` (which will make it available to your file system in your `~/Nox_Share/Other`)
 
 ## Automatically Ripping Images
 
