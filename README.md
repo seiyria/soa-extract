@@ -4,23 +4,50 @@
 ## Tools Used
 
 * Node.js
+* GraphicsMagick
 * PVRTexToolCLI.exe (included in repo) but for manual work, you can use PVRTexTool or Mali Texture Compression Tool
 * SOADec.exe (included in repo)
 * SOAImgEx.exe (included in repo) 
+
+## Setup
+
+* `npm i`
+* if you want to use image modify features (resize, trim) you will need GraphicsMagick
 
 ## Preparation / Get Files
 
 1. After downloading Star Ocean: Anamnesis, log on, and start the tutorial (you do not need to finish it).
 2. Open the Nox file explorer, and navigate to `/data/data/com.square_enix.android.android_googleplay.StarOceann\files\download\Image`.
 3. Copy the `etc2` folder to `/mnt/shared/OtherShare` (which will make it available to your file system in your `~/Nox_Share/Other)
-4. Drag the `etc2` folder on top of `SOADec.exe` - this should produce a lot of files with `_unpack` in the name, at the end.
+
+## Automatically Ripping Images
+
+It is now possible to automatically rip the files after doing the above steps manually. The CLI is flexible and offers some additional features beyond ripping, as well.
+
+For doing this, you should specify a path to the folder with the `.aif` files.
+
+### CLI Arguments
+
+* `--soa-dec-location` - the path to SOADec.exe (defaults to `./bin/SOADec.exe`)
+* `--soa-imgex-location` - the path to SOAImgEx.exe (defaults to `./bin/SOAImgEx.exe`)
+* `--pvr-textool-location` - the path to PVRTexToolCLI.exe (defaults to `./bin/PVRTexToolCLI.exe`)
+* `--output-folder` - the path to the desired folder output (defaults to `./output`)
+* `--input-folder` - the path to the desired input (defaults to `./input`)
+* `--error-log` - the path to the error log file (defaults to `./error.log`)
+* `--filter` - filter by files that start with the given text (defaults to `''` (no filter));
+
+## Manually Ripping Images
+
+**Note: This can be done without setting up or installing Node.js**
+
+1. Drag the `etc2` folder on top of `SOADec.exe` - this should produce a lot of files with `_unpack` in the name, at the end.
       - If desired, you can remove all the other files with `find -type f \! -name '*_unpack*' -delete` or equivalent
-5. Drag any `.aif` file onto `SOAImgEx.exe`. 
+2. Drag any `.aif` file onto `SOAImgEx.exe`. 
       - This will create a `Textures` folder with all of the textures for this particular sprite. This can be opened in Mali Texture Compression Tool or PVRTexTool.
       - Doing multiple files at a time _will not work_ because `SOAImgEx` does not support specific file name output. Ideally, automating this will address this issue as these files can be post-processed.
-6. Open or move the image in a different tool and save it as PNG.
-7. Repeat ad infintum until you want to gouge your eyes out.
-8. Done.
+3. Open or move the image in a different tool and save it as PNG.
+4. Repeat ad infintum until you want to gouge your eyes out.
+5. Done.
 
 ## File Information
 
@@ -45,9 +72,11 @@ All the cool shit is in `Images/etc2`. Known translations:
 - `rare*` - Star rarity icons.
 
 # TODO
-- better file names than 0, 1, 2 - sort them by their base file name (probably before the first underscore)
-- document the CLI
-- make the CLI variables configurable
+- make a directory diff tool (--diff=folder prints the diff after the extraction, _.difference(x,y), _.differeny(y,x) - print to diff.log)
+- add filter files (--filter=sk) and any file that starts with the pattern will be included
+- add auto-trim after export (--trim [true])
+- add auto-size after export (--size=64x64!)
+- add auto-pngquant after export (--compress [true])
 
 # Credits
 
