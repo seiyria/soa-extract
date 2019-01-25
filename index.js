@@ -14,6 +14,11 @@ const COMPRESS = argv['compress'] || false;
 const TRIM = argv['trim'] || false;
 const RESIZE = argv['resize'] || '';
 
+const DIFF = argv['diff'] || '';
+const DIFF_LOG_FILE = argv['diff-log'] || './diff.log';
+const DIFF_ONLY = argv['diff-only'] || false;
+
+const difference = require('lodash.difference');
 const fs = require('fs-extra');
 const rimraf = require('rimraf');
 const glob = require('glob');
@@ -21,6 +26,34 @@ const path = require('path');
 const exec = require('child_process').execSync;
 const execFile = require('child_process').execFileSync;
 const pngquant = require('pngquant-bin');
+
+const doDiff = () => {
+  if(!DIFF) return;
+
+  const folder1Files = glob.sync(path.join(OUTPUT_DIRECTORY, '*')).map(x => path.basename(x));
+  const folder2Files = glob.sync(path.join(DIFF, '*')).map(x => path.basename(x));
+
+  const folder1Diff = difference(folder1Files, folder2Files);
+  const folder2Diff = difference(folder2Files, folder1Files);
+
+  let diffLog = ``;
+  diffLog += `Unique files found in ${path.resolve(OUTPUT_DIRECTORY)}:\r\n\r\n`;
+  diffLog += folder1Diff.length === 0 ? 'None' : folder1Diff.join('\r\n');
+
+  diffLog += '\r\n\r\n';
+
+  diffLog += `Unique files found in ${path.resolve(DIFF)}:\r\n\r\n`;
+  diffLog += folder2Diff.length === 0 ? 'None' : folder2Diff.join('\r\n');
+
+  fs.outputFileSync(DIFF_LOG_FILE, diffLog);
+
+  console.log(`Diff complete. Log can be found at ${DIFF_LOG_FILE}`);
+};
+
+if(DIFF_ONLY) {
+  doDiff();
+  return;
+}
 
 // Clean previous SOADec output
 rimraf.sync(path.join(__dirname, INPUT_DIRECTORY, '*_unpack*'));
@@ -66,7 +99,10 @@ for(file of files) {
 // Clean SOADec output because we dont want to leave the input folder in a different state than it came
 rimraf.sync(path.join(__dirname, INPUT_DIRECTORY, '*_unpack*'));
 
-if(errorFiles.length > 0) fs.outputFileSync(ERROR_LOG_FILE, errorFiles.join('\r\n'));
+if(errorFiles.length > 0) {
+  fs.outputFileSync(ERROR_LOG_FILE, errorFiles.join('\r\n'));
+  console.log(`${errorFiles.length} error files. Log can be found at ${ERROR_LOG_FILE}`);
+}
 
 const outputFiles = glob.sync(path.join(__dirname, OUTPUT_DIRECTORY, '*'));
 
@@ -104,3 +140,5 @@ if(COMPRESS) {
 
   console.log('Compressing all files... done!');
 }
+
+doDiff();

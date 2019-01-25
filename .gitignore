@@ -1,6 +1,6 @@
 
 node_modules
 Textures
-error.log
+*.log
 input
 output

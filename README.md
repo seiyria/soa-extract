@@ -38,6 +38,16 @@ For doing this, you should specify a path to the folder with the `.aif` files.
 * `--trim` - use GraphicsMagick to trim the output images to their borders, usually to resize them to a uniform size
 * `--resize WxH!` - use GraphicsMagick to resize the output images to the specified size, in the WidthxHeight format (for example, 256x256). To force resize in all circumstances, append a ! (for example, 256x256!). You probably will want to use `--filter` if you're using this.
 * `--compress` - compress the output images using pngquant. It will run default compression. To pass args to pngquant, do `--compress="--quality 50-60"`. A full listing of pngquant args can be found [on their website](https://pngquant.org/).
+* `--diff-only` - do _only_ a diff and no processing. For this, you still need to specify `--output-folder`.
+* `--diff` - the path of the folder to compare against to see new / old files
+* `--diff-log` - the path to the diff log file (defaults to `./diff.log`)
+
+#### CLI Examples
+
+* Normal extraction: `node index.js --input-folder=etc2 --output-folder=extract --trim --compress`
+* Normal extraction w/ diff: `node index.js --input-folder=etc2 --output-folder=extract2 --trim --compress --diff=extract`
+* Extract weapon sprites, resize, and compress highly: `node index.js --input-folder=etc2 --output-folder=extract --trim --resize 128x128! --compress="--quality=50-60"`
+* Diff two folders: `node index.js --diff-only --output-folder=extract2 --diff=extract`
 
 ## Manually Ripping Images
 
@@ -73,9 +83,6 @@ All the cool shit is in `Images/etc2`. Known translations:
 - `icon_boss*` - Misery boss icons.
 - `plate_honor_*` - Title plate sprites.
 - `rare*` - Star rarity icons.
-
-# TODO
-- make a directory diff tool (--diff=folder prints the diff after the extraction, _.difference(x,y), _.differeny(y,x) - print to diff.log)
 
 # Credits
 

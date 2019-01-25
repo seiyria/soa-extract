@@ -24,6 +24,7 @@
   "homepage": "https://github.com/seiyria/soanamnesis-extract#readme",
   "dependencies": {
     "fs-extra": "^7.0.1",
+    "lodash.difference": "^4.5.0",
     "minimist": "^1.2.0",
     "node-glob": "^1.2.0",
     "pngquant-bin": "^5.0.1",
