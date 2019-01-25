@@ -1,9 +1,9 @@
 
 const argv = require('minimist')(process.argv.slice(2));
 
-const SOADecLocation = argv['soa-dec-location'] || './bin/SOADec.exe';
-const SOAImgExLocation = argv['soa-imgex-location'] ||'./bin/SOAImgEx.exe';
-const PVRTexToolLocation = argv['pvr-textool-location'] ||'./bin/PVRTexToolCLI.exe';
+const SOADecLocation = argv['soa-dec-location'] || __dirname + '/bin/SOADec.exe';
+const SOAImgExLocation = argv['soa-imgex-location'] || __dirname + '/bin/SOAImgEx.exe';
+const PVRTexToolLocation = argv['pvr-textool-location'] || __dirname + '/bin/PVRTexToolCLI.exe';
 
 const INPUT_DIRECTORY = argv['input-folder'] || './input';
 const OUTPUT_DIRECTORY = argv['output-folder'] || './output';
@@ -56,12 +56,15 @@ if(DIFF_ONLY) {
 }
 
 const cwd = process.cwd();
+const SOADecRealLocation = path.isAbsolute(SOADecLocation) ? SOADecLocation : path.join(cwd, SOADecLocation);
+const SOAImgExRealLocation = path.isAbsolute(SOAImgExLocation) ? SOAImgExLocation : path.join(cwd, SOAImgExLocation);
+const PVRTexToolRealLocation = path.isAbsolute(PVRTexToolLocation) ? PVRTexToolLocation : path.join(cwd, PVRTexToolLocation);
 
 // Clean previous SOADec output
 rimraf.sync(path.join(cwd, INPUT_DIRECTORY, '*_unpack*'));
 
 // SOADec - unpack the files
-exec(`"${path.join(cwd, SOADecLocation)}" "${path.join(cwd, INPUT_DIRECTORY)}"`);
+exec(`"${SOADecRealLocation}" "${path.join(cwd, INPUT_DIRECTORY)}"`);
 
 // get the unpacked files
 const files = glob.sync(path.join(cwd, INPUT_DIRECTORY, '*_unpack*'));
@@ -77,7 +80,7 @@ for(file of files) {
   // filter files by FILE_FILTER
   if(FILE_FILTER && file.indexOf(FILE_FILTER) === -1) continue;
 
-  exec(`"${path.join(cwd, SOAImgExLocation)}" "${file}"`);
+  exec(`"${SOAImgExRealLocation}" "${file}"`);
 
   const texturePath = path.join(process.cwd(), 'Textures', '*');
   const generatedFiles = glob.sync(texturePath);
@@ -87,7 +90,7 @@ for(file of files) {
   let curGenFile = 0;
   for(genFile of generatedFiles) {
     try {
-      exec(`"${path.join(cwd, PVRTexToolLocation)}" -i "${genFile}" -f r8g8b8a8 -d "${path.join(cwd, OUTPUT_DIRECTORY, `${fileNameBase}-${curGenFile++}.png`)}"`);
+      exec(`"${PVRTexToolRealLocation}" -i "${genFile}" -f r8g8b8a8 -d "${path.join(cwd, OUTPUT_DIRECTORY, `${fileNameBase}-${curGenFile++}.png`)}"`);
     } catch(e) {
       const error = `Skipping ${file} -> ${genFile}: ${e.message}`;
       errorFiles.push(error);
