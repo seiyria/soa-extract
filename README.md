@@ -35,6 +35,9 @@ For doing this, you should specify a path to the folder with the `.aif` files.
 * `--input-folder` - the path to the desired input (defaults to `./input`)
 * `--error-log` - the path to the error log file (defaults to `./error.log`)
 * `--filter` - filter by files that start with the given text (defaults to `''` (no filter));
+* `--trim` - use GraphicsMagick to trim the output images to their borders, usually to resize them to a uniform size
+* `--resize WxH!` - use GraphicsMagick to resize the output images to the specified size, in the WidthxHeight format (for example, 256x256). To force resize in all circumstances, append a ! (for example, 256x256!). You probably will want to use `--filter` if you're using this.
+* `--compress` - compress the output images using pngquant. It will run default compression. To pass args to pngquant, do `--compress="--quality 50-60"`. A full listing of pngquant args can be found [on their website](https://pngquant.org/).
 
 ## Manually Ripping Images
 
@@ -73,10 +76,6 @@ All the cool shit is in `Images/etc2`. Known translations:
 
 # TODO
 - make a directory diff tool (--diff=folder prints the diff after the extraction, _.difference(x,y), _.differeny(y,x) - print to diff.log)
-- add filter files (--filter=sk) and any file that starts with the pattern will be included
-- add auto-trim after export (--trim [true])
-- add auto-size after export (--size=64x64!)
-- add auto-pngquant after export (--compress [true])
 
 # Credits
 

@@ -10,12 +10,17 @@ const OUTPUT_DIRECTORY = argv['output-folder'] || './output';
 const ERROR_LOG_FILE = argv['error-log'] || './error.log';
 
 const FILE_FILTER = argv['filter'] || '';
+const COMPRESS = argv['compress'] || false;
+const TRIM = argv['trim'] || false;
+const RESIZE = argv['resize'] || '';
 
 const fs = require('fs-extra');
 const rimraf = require('rimraf');
 const glob = require('glob');
 const path = require('path');
 const exec = require('child_process').execSync;
+const execFile = require('child_process').execFileSync;
+const pngquant = require('pngquant-bin');
 
 // Clean previous SOADec output
 rimraf.sync(path.join(__dirname, INPUT_DIRECTORY, '*_unpack*'));
@@ -62,3 +67,40 @@ for(file of files) {
 rimraf.sync(path.join(__dirname, INPUT_DIRECTORY, '*_unpack*'));
 
 if(errorFiles.length > 0) fs.outputFileSync(ERROR_LOG_FILE, errorFiles.join('\r\n'));
+
+const outputFiles = glob.sync(path.join(__dirname, OUTPUT_DIRECTORY, '*'));
+
+if(TRIM) {
+  console.log('Trimming all files...');
+
+  outputFiles.forEach(file => {
+    exec(`gm convert "${file}" -trim "${file}"`);
+  });
+
+  console.log('Trimming all files... done!');
+}
+
+if(RESIZE) {
+  console.log('Resizing all files...');
+
+  outputFiles.forEach(file => {
+    exec(`gm convert "${file}" -resize ${RESIZE} "${file}"`);
+  });
+
+  console.log('Resizing all files... done!');
+}
+
+if(COMPRESS) {
+  console.log('Compressing all files...');
+
+  const passArgs = typeof COMPRESS === 'string';
+
+  outputFiles.forEach(file => {
+    const args = ['-f', '-o', file, file];
+    if(passArgs) args.unshift(COMPRESS);
+
+    execFile(pngquant, args);
+  });
+
+  console.log('Compressing all files... done!');
+}

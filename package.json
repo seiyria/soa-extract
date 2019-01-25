@@ -26,6 +26,7 @@
     "fs-extra": "^7.0.1",
     "minimist": "^1.2.0",
     "node-glob": "^1.2.0",
+    "pngquant-bin": "^5.0.1",
     "rimraf": "^2.6.3"
   },
   "devDependencies": {}
