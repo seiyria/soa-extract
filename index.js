@@ -56,21 +56,20 @@ if(DIFF_ONLY) {
 }
 
 const cwd = process.cwd();
-const SOADecRealLocation = path.isAbsolute(SOADecLocation) ? SOADecLocation : path.join(cwd, SOADecLocation);
-const SOAImgExRealLocation = path.isAbsolute(SOAImgExLocation) ? SOAImgExLocation : path.join(cwd, SOAImgExLocation);
-const PVRTexToolRealLocation = path.isAbsolute(PVRTexToolLocation) ? PVRTexToolLocation : path.join(cwd, PVRTexToolLocation);
+
+const realPath = (str) => path.isAbsolute(str) ? str : path.join(cwd, str);
 
 // Clean previous SOADec output
-rimraf.sync(path.join(cwd, INPUT_DIRECTORY, '*_unpack*'));
+rimraf.sync(path.join(realPath(INPUT_DIRECTORY), '*_unpack*'));
 
 // SOADec - unpack the files
-exec(`"${SOADecRealLocation}" "${path.join(cwd, INPUT_DIRECTORY)}"`);
+exec(`"${realPath(SOADecLocation)}" "${realPath(INPUT_DIRECTORY)}"`);
 
 // get the unpacked files
-const files = glob.sync(path.join(cwd, INPUT_DIRECTORY, '*_unpack*'));
+const files = glob.sync(path.join(realPath(INPUT_DIRECTORY), '*_unpack*'));
 
 // make a directory for files to go into
-fs.mkdirpSync(path.join(cwd, OUTPUT_DIRECTORY));
+fs.mkdirpSync(realPath(OUTPUT_DIRECTORY));
 
 const errorFiles = [];
 
@@ -80,7 +79,7 @@ for(file of files) {
   // filter files by FILE_FILTER
   if(FILE_FILTER && file.indexOf(FILE_FILTER) === -1) continue;
 
-  exec(`"${SOAImgExRealLocation}" "${file}"`);
+  exec(`"${realPath(SOAImgExLocation)}" "${file}"`);
 
   const texturePath = path.join(process.cwd(), 'Textures', '*');
   const generatedFiles = glob.sync(texturePath);
@@ -90,7 +89,7 @@ for(file of files) {
   let curGenFile = 0;
   for(genFile of generatedFiles) {
     try {
-      exec(`"${PVRTexToolRealLocation}" -i "${genFile}" -f r8g8b8a8 -d "${path.join(cwd, OUTPUT_DIRECTORY, `${fileNameBase}-${curGenFile++}.png`)}"`);
+      exec(`"${realPath(PVRTexToolLocation)}" -i "${genFile}" -f r8g8b8a8 -d "${path.join(realPath(OUTPUT_DIRECTORY), `${fileNameBase}-${curGenFile++}.png`)}"`);
     } catch(e) {
       const error = `Skipping ${file} -> ${genFile}: ${e.message}`;
       errorFiles.push(error);
@@ -102,14 +101,14 @@ for(file of files) {
 }
 
 // Clean SOADec output because we dont want to leave the input folder in a different state than it came
-rimraf.sync(path.join(cwd, INPUT_DIRECTORY, '*_unpack*'));
+rimraf.sync(path.join(realPath(INPUT_DIRECTORY), '*_unpack*'));
 
 if(errorFiles.length > 0) {
   fs.outputFileSync(ERROR_LOG_FILE, errorFiles.join('\r\n'));
   console.log(`${errorFiles.length} error files. Log can be found at ${ERROR_LOG_FILE}`);
 }
 
-const outputFiles = glob.sync(path.join(cwd, OUTPUT_DIRECTORY, '*'));
+const outputFiles = glob.sync(path.join(realPath(OUTPUT_DIRECTORY), '*'));
 
 if(TRIM) {
   console.log('Trimming all files...');
