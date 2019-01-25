@@ -70,23 +70,30 @@ For doing this, you should specify a path to the folder with the `.aif` files.
 
 All the cool shit is in `Images/etc2`. Known translations:
 
-- `skl_*` - Skill sprites.
-- `rsh_Magic_*` - Magic sprites.
-- `Role_*` - Role icons.
-- `itm_th_*` - Item sprites. Different ranges have different sprites.
-- `ItemIcon_weapon_*` - Weapon type icons.
-- `enm_th_*` - Enemy sprites.
-- `EnemyIcon_*` - Enemy type icons.
-- `ElementIcon_*` - Element icons.
+- `banner_` - All banners.
+- `battle_*` - Battle status icons.
 - `cp0*` - Portrait, compressed portrait, and character sprites.
 - `cn0*` - Portrait, compressed portrait, and character sprites (again?)
 - `cm0*` - Portrait, compressed portrait, and character sprites (again?)
 - `cc0*` - Portrait, compressed portrait, and character sprites (again?)
-- `banner_` - All banners.
-- `battle_*` - Battle status icons.
+- `ElementIcon_*` - Element icons.
+- `EnemyIcon_*` - Enemy type icons.
+- `enm_th_*` - Enemy sprites.
 - `icon_boss*` - Misery boss icons.
+- `ItemIcon_weapon_*` - Weapon type icons.
+- `itm_th_*` - Item sprites. Different ranges have different sprites.
+- `pickup_img_*` - Gacha boxes.
+- `planet*` - Planet images.
 - `plate_honor_*` - Title plate sprites.
 - `rare*` - Star rarity icons.
+- `Role_*` - Role icons.
+- `rsh_*` - Skill rush sprites.
+- `rsh_Magic_*` - Magic rush sprites.
+- `skl_*` - Skill sprites.
+- `stp_*` - Stamp sprites.
+- `ticketgacha_*` - Gacha tickets.
+- `tips_th_*` - The screen transition tips.
+- `ui_th_*` - Deep space icons.
 
 # Credits
 
