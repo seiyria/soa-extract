@@ -48,10 +48,11 @@ For doing this, you should specify a path to the folder with the `.aif` files.
 
 #### CLI Examples
 
-* Normal extraction: `soa-extract --input-folder=etc2 --output-folder=extract --trim --compress`
-* Normal extraction w/ diff: `soa-extract --input-folder=etc2 --output-folder=extract2 --trim --compress --diff=extract`
-* Extract weapon sprites, resize, and compress highly: `soa-extract --input-folder=etc2 --output-folder=extract --trim --resize 128x128! --compress="--quality=50-60"`
+* Normal extraction: `soa-extract --input-folder=etc2 --output-folder=extract --compress`
+* Normal extraction w/ diff: `soa-extract --input-folder=etc2 --output-folder=extract2 --compress --diff=extract`
+* Extract item sprites, resize, and compress highly: `soa-extract --input-folder=etc2 --output-folder=extract --trim --resize 128x128! --compress="--quality=50-60" --filter=itm_th_`
 * Diff two folders: `soa-extract --diff-only --output-folder=extract2 --diff=extract`
+* Extract stamps: `soa-extract --input-folder=etc2 --output-folder=extract --trim --filter=stp_`
 
 ## Manually Ripping Images
 
