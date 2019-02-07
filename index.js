@@ -89,7 +89,7 @@ for(file of files) {
   let curGenFile = 0;
   for(genFile of generatedFiles) {
     try {
-      exec(`"${realPath(PVRTexToolLocation)}" -i "${genFile}" -f r8g8b8a8 -d "${path.join(realPath(OUTPUT_DIRECTORY), `"${fileNameBase}-${curGenFile++}.png"`)}"`);
+      exec(`"${realPath(PVRTexToolLocation)}" -i "${genFile}" -f r8g8b8a8 -d "${path.join(realPath(OUTPUT_DIRECTORY), `${fileNameBase}-${curGenFile++}.png`)}"`);
     } catch(e) {
       const error = `Skipping ${file} -> ${genFile}: ${e.message}`;
       errorFiles.push(error);

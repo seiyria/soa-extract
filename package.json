@@ -1,6 +1,6 @@
 {
   "name": "soa-extract",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Star Ocean Anamnesis Resource Extractor",
   "main": "index.js",
   "bin": "./cli.js",
