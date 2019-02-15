@@ -1,9 +1,11 @@
 
 const argv = require('minimist')(process.argv.slice(2));
 
-const SOADecLocation = argv['soa-dec-location'] || __dirname + '/bin/SOADec.exe';
-const SOAImgExLocation = argv['soa-imgex-location'] || __dirname + '/bin/SOAImgEx.exe';
-const PVRTexToolLocation = argv['pvr-textool-location'] || __dirname + '/bin/PVRTexToolCLI.exe';
+const basepath = process.pkg ? process.cwd() : __dirname;
+
+const SOADecLocation = argv['soa-dec-location'] || basepath + '/bin/SOADec.exe';
+const SOAImgExLocation = argv['soa-imgex-location'] || basepath + '/bin/SOAImgEx.exe';
+const PVRTexToolLocation = argv['pvr-textool-location'] || basepath + '/bin/PVRTexToolCLI.exe';
 
 const INPUT_DIRECTORY = argv['input-folder'] || './input';
 const OUTPUT_DIRECTORY = argv['output-folder'] || './output';

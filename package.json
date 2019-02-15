@@ -5,7 +5,9 @@
   "main": "index.js",
   "bin": "./cli.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "pkg --output build/soa-extract.exe --targets node10-win-x64 index.js",
+    "postbuild": "node postbuild.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +33,7 @@
     "pngquant-bin": "^5.0.1",
     "rimraf": "^2.6.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "pkg": "^4.3.7"
+  }
 }

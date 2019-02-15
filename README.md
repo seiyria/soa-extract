@@ -11,7 +11,7 @@
 
 ## Setup
 
-* `npm i`
+* `npm i` (Or, [download the zip](https://github.com/seiyria/soa-extract/releases/tag/1.0.0))
 * if you want to use image modify features (resize, trim) you will need GraphicsMagick
 
 ### Get This Module on NPM
